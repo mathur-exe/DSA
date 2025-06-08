@@ -1,8 +1,4 @@
-class Node: 
-    def __init__(self, v):
-        self.left = None
-        self.right = None
-        self.val = v
+from Tree import Node
 
 def InOrder(root):
     # Left-Root-Right
@@ -10,7 +6,7 @@ def InOrder(root):
     if root is None: return
 
     InOrder(root.left)              # Left
-    print(f"{root.val=}")           # Root
+    print(f"{root.value=}")           # Root
     InOrder(root.right)             # Right
 
 if __name__ == "__main__":

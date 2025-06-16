@@ -101,3 +101,81 @@ def find_ceil(root: Node, key):
             ceil = root.value
             root = root.left
     return ceil
+
+# %%
+def Successor(root : Node, tgt):
+    '''
+    Inorder Successor (ceil) -> min of right-subtree
+
+    Steps
+    - Start at root, initialize 'best' as None.
+    - If current node's key == x, return key.
+    - If node's key < x, record key as candidate and move right.
+    - If node's key > x, move left.
+    - Continue until reaching a leaf.
+    - Return last recorded candidate (or None if not found).
+    '''
+
+    def find_min(node: Node):
+        while node and node.left:
+            node = node.left
+        return node
+
+    succ = None
+    curr = root
+
+    # ======= Logic for while loop ============
+    # searching: min of right subtree
+    # if tgt < curr.value --> tgt must be searched in left tree
+    #                         as higher chances of finding closer val
+    # elif: <common sense>
+    # else: <code ... curr.right> --> find min in right subtree
+    # =========================================
+    while curr:
+        if tgt < curr.value: 
+            succ = curr
+            curr = curr.left
+        elif tgt > curr.value:
+            curr = curr.right
+        else:       # tgt is found
+            if curr.right: return find_min(curr.right)
+            break
+    return succ
+
+# %%
+def predecessor(root : Node, tgt):
+    '''
+    Inorder Predecessor (floor) -> max of left-subtree
+
+    Steps:
+    - If node has left child → return max in left subtree.
+    - Else, track candidate as you walk down:
+        * If target > curr.key → candidate = curr; go right.
+        * If target < curr.key → go left.
+    '''
+
+    def find_max(node: Node):
+        while node and node.right: 
+            node = node.right
+        return node
+    
+    pred = None
+    curr = root
+
+    # ======= Logic for while loop ============
+    # searching: max of left subtree
+    # if tgt > curr.value --> tgt must be searched in right tree
+    #                         as higher chances of finding closer val
+    # elif: <common sense>
+    # else: <code ... curr.left> --> find max in left subtree
+    # =========================================
+    while curr:
+        if tgt > curr.value:
+            pred = curr
+            curr = curr.right
+        elif tgt < curr.value:
+            curr = curr.left
+        else:       # tgt found
+            if curr.left: return find_max(curr.left)
+            break
+    return pred

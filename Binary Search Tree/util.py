@@ -34,6 +34,7 @@ def search(root : Node, key):
         return search(root.left, key)
     
 # %%
+# TODO: Rewrte node deleteion in context to succ & pred
 def delete(root : Node, key):
     '''
     There are 3 types of deletion
@@ -74,6 +75,7 @@ def delete(root : Node, key):
     return root
 
 # %%
+# TODO: Rewrte find_floor & find_ceil in context to succ & pred
 def find_floor(root: None, x : int):
     # Non-recursive fn to find floor for a key
     floor = -1
@@ -89,6 +91,7 @@ def find_floor(root: None, x : int):
     return floor
 
 # %%
+# TODO: Rewrte find_floor & find_ceil in context to succ & pred
 def find_ceil(root: Node, key):
     ceil = -1
     while root is not None:

@@ -10,6 +10,7 @@ def insert(root: Node, key):
     else:
         root.left = insert(root.left, key)
     return root
+
 # %%
 def inorder(root):
     # left - root - right
@@ -31,6 +32,7 @@ def search(root : Node, key):
         return search(root.right, key)
     else:
         return search(root.left, key)
+    
 # %%
 def delete(root : Node, key):
     '''
@@ -56,8 +58,8 @@ def delete(root : Node, key):
             node = node.left
         return node
 
-    if root.value < key: delete(root.right, key)
-    elif root.value > key: delete(root.left, key)
+    if root.value < key: root.right = delete(root.right, key)
+    elif root.value > key: root.left = delete(root.left, key)
     else:       # match condition
         # case 1: no left child
         if root.left is None: return root.right
@@ -70,3 +72,32 @@ def delete(root : Node, key):
         root.right = delete(root.right, successor.value)
     
     return root
+
+# %%
+def find_floor(root: None, x : int):
+    # Non-recursive fn to find floor for a key
+    floor = -1
+    while root is not None:
+        if root.value == x: return root.value
+
+        # pay attention to this for loop 
+        # as choice of subtree depends on ceil/ floor
+        if x < root.value: root = root.left
+        else: 
+            floor = root.value
+            root = root.right
+    return floor
+
+# %%
+def find_ceil(root: Node, key):
+    ceil = -1
+    while root is not None:
+        if root.value == key: return root.value
+
+        # pay attention to this for loop 
+        # as choice of subtree depends on ceil/ floor
+        if key > root.value: root = root.right
+        else: 
+            ceil = root.value
+            root = root.left
+    return ceil
